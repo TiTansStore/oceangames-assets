@@ -1,4 +1,5 @@
 import json,re,html,sys
+EMOJI=re.compile('[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\uFE0F\u200D\u2934\u2935]')
 src=sys.argv[1]
 d=json.load(open(src))['data']
 SKIP=('⚙️','📞')
@@ -9,7 +10,7 @@ def desc_text(h):
         if m and m.group(1).strip().startswith(SKIP): continue
         t=re.sub(r'</(p|li|h\d|ol|ul)>','\n',p); t=re.sub(r'<li>','• ',t)
         t=html.unescape(re.sub(r'<[^>]+>','',t)); t=re.sub(r'[ \t]+',' ',t)
-        t=re.sub(r'\n\s*\n+','\n',t).strip(); out.append(t)
+        t=EMOJI.sub('',t); t=re.sub(r'[ \t]+',' ',t); t=re.sub(r'\n\s*\n+','\n',t).strip(); out.append(t)
     return '\n'.join(x for x in out if x)[:4900]
 rows=[]; C=['SA','AE','KW','OM','JO']
 for p in d:
