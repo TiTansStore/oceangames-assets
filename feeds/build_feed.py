@@ -20,7 +20,7 @@ for p in d:
     reg=p['regular_price']['amount']; cur=p['price']['amount']
     rows.append({'id':str(p['id']),'title':p['name'][:150],'description':desc_text(p['description']),
      'link':p['urls']['customer'],'image_link':(CDN+IMG[p['id']]+'.png') if p['id'] in IMG else p['main_image'],'additional_image_link':p['images'][0]['url'] if p.get('images') else '',
-     'availability':'in_stock','price':f"{reg:.2f} SAR",'sale_price':f"{cur:.2f} SAR" if reg>cur else '',
+     'availability':'in_stock','price':f"{cur:.2f} SAR",'sale_price':'',  # Google: send the real selling price only, never the crossed-out price
      'brand':p['brand']['name'] if p.get('brand') else 'Ocean Games','condition':'new','identifier_exists':'no',
      'mpn':p['sku'] or '','product_type':' > '.join(c['name'] for c in p.get('categories',[])),
      'shipping':','.join(f'{c}:::0.00 SAR' for c in C)})
