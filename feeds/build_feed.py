@@ -12,19 +12,27 @@ def desc_text(h):
         t=html.unescape(re.sub(r'<[^>]+>','',t)); t=re.sub(r'[ \t]+',' ',t)
         t=EMOJI.sub('',t); t=re.sub(r'[ \t]+',' ',t); t=re.sub(r'\n\s*\n+','\n',t).strip(); out.append(t)
     return '\n'.join(x for x in out if x)[:4900]
-IMG={1715695405:'office2019',557876774:'office2021',684950880:'cr-shared-1m',258386580:'cr-private-1m',111606232:'fc27',1219350222:'steam-tr',1394434499:'steam-ua',885894217:'fivem',278228105:'nitro-3m'}
+IMG={1527590358:'gta5',1202926815:'minecraft',1715695405:'office2019',557876774:'office2021',684950880:'cr-shared-1m',258386580:'cr-private-1m',111606232:'fc27',1219350222:'steam-tr',1394434499:'steam-ua',885894217:'fivem',278228105:'nitro-3m'}
 CDN='https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@23b9803/products/'
+CDN2='https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@57584d3/products/'
+NEW={1527590358,1202926815}
+GPC={'games':'Software > Video Game Software','office':'Software > Computer Software > Business & Productivity Software'}
+def gpc(p):
+    n=p['name']; cats=' '.join(c['name'] for c in p.get('categories',[]))
+    if 'أوفيس' in n or 'ويندوز' in n: return GPC['office']
+    if 'ألعاب' in cats or 'لعبة' in n or 'PC' in n: return GPC['games']
+    return ''
 rows=[]; C=['SA','AE','KW','OM','JO']
 for p in d:
-    if p['status']!='sale' or not p['quantity'] or 'GEMINI' in (p['sku'] or ''): continue
+    if p['status']!='sale' or not p['quantity'] or 'GEMINI' in (p['sku'] or '') or not p['price']['amount']: continue  # Google rejects 0.00 prices
     reg=p['regular_price']['amount']; cur=p['price']['amount']
     rows.append({'id':str(p['id']),'title':p['name'][:150],'description':desc_text(p['description']),
-     'link':p['urls']['customer'],'image_link':(CDN+IMG[p['id']]+'.png') if p['id'] in IMG else p['main_image'],'additional_image_link':p['images'][0]['url'] if p.get('images') else '',
+     'link':p['urls']['customer'],'image_link':((CDN2 if p['id'] in NEW else CDN)+IMG[p['id']]+'.png') if p['id'] in IMG else p['main_image'],'additional_image_link':p['images'][0]['url'] if p.get('images') else '',
      'availability':'in_stock','price':f"{cur:.2f} SAR",'sale_price':'',  # Google: send the real selling price only, never the crossed-out price
      'brand':p['brand']['name'] if p.get('brand') else 'Ocean Games','condition':'new','identifier_exists':'no',
      'mpn':p['sku'] or '','product_type':' > '.join(c['name'] for c in p.get('categories',[])),
-     'shipping':','.join(f'{c}:::0.00 SAR' for c in C)})
-cols=['id','title','description','link','image_link','additional_image_link','availability','price','sale_price','brand','condition','identifier_exists','mpn','product_type','shipping']
+     'shipping':','.join(f'{c}:::0.00 SAR' for c in C),'google_product_category':gpc(p)})
+cols=['id','title','description','link','image_link','additional_image_link','availability','price','sale_price','brand','condition','identifier_exists','mpn','product_type','shipping','google_product_category']
 with open('feeds/google-merchant.tsv','w',encoding='utf-8') as f:
     f.write('\t'.join(cols)+'\n')
     for r in rows: f.write('\t'.join(r[c].replace('\t',' ').replace('\n',' ') for c in cols)+'\n')
