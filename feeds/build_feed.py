@@ -12,7 +12,7 @@ def desc_text(h):
         t=html.unescape(re.sub(r'<[^>]+>','',t)); t=re.sub(r'[ \t]+',' ',t)
         t=EMOJI.sub('',t); t=re.sub(r'[ \t]+',' ',t); t=re.sub(r'\n\s*\n+','\n',t).strip(); out.append(t)
     return '\n'.join(x for x in out if x)[:4900]
-IMG={1344660420:'arc-raiders',1527590358:'gta5',1202926815:'minecraft-account',1715695405:'office2019',557876774:'office2021',684950880:'cr-shared-1m',258386580:'cr-private-1m',111606232:'fc27',1219350222:'steam-tr',1394434499:'steam-ua',885894217:'fivem',278228105:'nitro-3m'}
+IMG={1050297061:'rust',1344660420:'arc-raiders',1527590358:'gta5',1202926815:'minecraft-account',1715695405:'office2019',557876774:'office2021',684950880:'cr-shared-1m',258386580:'cr-private-1m',111606232:'fc27',1219350222:'steam-tr',1394434499:'steam-ua',885894217:'fivem',278228105:'nitro-3m'}
 CDN='https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@23b9803/products/'
 CDN2='https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@57584d3/products/'
 NEW={1527590358}
@@ -20,6 +20,8 @@ CDN3='https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@48acc53/products
 NEW3={1344660420}
 CDN4='https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@cc2b189/products/'
 NEW4={1202926815}
+CDN5='https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@cd63d69/products/'
+NEW5={1050297061}
 GPC={'games':'Software > Video Game Software','office':'Software > Computer Software > Business & Productivity Software'}
 def gpc(p):
     n=p['name']; cats=' '.join(c['name'] for c in p.get('categories',[]))
@@ -31,7 +33,7 @@ for p in d:
     if p['status']!='sale' or not p['quantity'] or 'GEMINI' in (p['sku'] or '') or not p['price']['amount']: continue  # Google rejects 0.00 prices
     reg=p['regular_price']['amount']; cur=p['price']['amount']
     rows.append({'id':str(p['id']),'title':p['name'][:150],'description':desc_text(p['description']),
-     'link':p['urls']['customer'],'image_link':((CDN4 if p['id'] in NEW4 else CDN3 if p['id'] in NEW3 else CDN2 if p['id'] in NEW else CDN)+IMG[p['id']]+'.png') if p['id'] in IMG else p['main_image'],'additional_image_link':p['images'][0]['url'] if p.get('images') else '',
+     'link':p['urls']['customer'],'image_link':((CDN5 if p['id'] in NEW5 else CDN4 if p['id'] in NEW4 else CDN3 if p['id'] in NEW3 else CDN2 if p['id'] in NEW else CDN)+IMG[p['id']]+'.png') if p['id'] in IMG else p['main_image'],'additional_image_link':p['images'][0]['url'] if p.get('images') else '',
      'availability':'in_stock','price':f"{cur:.2f} SAR",'sale_price':'',  # Google: send the real selling price only, never the crossed-out price
      'brand':p['brand']['name'] if p.get('brand') else 'Ocean Games','condition':'new','identifier_exists':'no',
      'mpn':p['sku'] or '','product_type':' > '.join(c['name'] for c in p.get('categories',[])),
