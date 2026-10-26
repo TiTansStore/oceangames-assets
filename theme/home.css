@@ -1,0 +1,181 @@
+/* ==========================================================================
+   اوشن قيمز — home.css  |  الإصدار: v0.2.0  |  2026-10-26
+   الرئيسية بتصميم الموك أب المعتمد (v1): هيرو مخصص، شرائح الأقسام، شريط وعد
+   التسليم، شريط نيلي للبكجات بموجة، بطاقات فاتحة، خط زمني، فوتر نيلي.
+   يُلصق بعد custom.css في نفس حقل CSS. يعتمد على كلاسات og-* في عناصر الرئيسية
+   وعلى العناصر التي يبنيها home.js (og-hero, og-chips, og-stats).
+   ========================================================================== */
+
+/* ---------- 10. الهيدر والشريط العلوي ---------- */
+.store-header .angel-ad{background:var(--og-text) !important;color:#fff !important}
+.store-header .angel-ad *{color:#fff !important}
+.store-header .angel-ad .ad-close{color:#F5B700 !important}
+.store-header .header-inner{background:rgba(255,255,255,.94) !important;backdrop-filter:blur(10px);border-bottom:1px solid var(--og-border)}
+
+/* ---------- 11. عناوين الأقسام ---------- */
+.s-block__title h2{font-weight:800 !important;font-size:1.9rem !important;line-height:1.3;color:var(--og-text) !important;letter-spacing:-.2px}
+.s-block__title p{color:var(--og-muted) !important;font-size:.95rem !important}
+.s-block__title h2::before{content:"";display:block;width:22px;height:3px;border-radius:2px;background:var(--og-primary);margin:0 auto 10px}
+.s-block--features .s-block__title h2::before{margin:0 auto 10px}
+@media (max-width:640px){.s-block__title h2{font-size:1.35rem !important}}
+
+/* ---------- 12. الهيرو المخصص (يبنيه home.js) ---------- */
+.home-slider.og-hidden{display:none !important}
+.og-hero{position:relative;overflow:hidden;padding:56px 0 120px;background:
+  radial-gradient(900px 420px at 85% 20%,rgba(0,111,191,.10),transparent 60%),
+  radial-gradient(700px 420px at 10% 90%,rgba(245,183,0,.14),transparent 60%),var(--og-bg)}
+.og-hero__wrap{width:100%;max-width:1288px;margin-inline:auto;padding-inline:24px;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px;position:relative}
+.og-hero__eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--og-primary)}
+.og-hero__eyebrow::before{content:"";width:22px;height:3px;border-radius:2px;background:var(--og-primary)}
+.og-hero h1{font-size:50px;line-height:1.2;font-weight:800;color:var(--og-text);margin:14px 0 0;letter-spacing:-.5px}
+.og-hero h1 em{font-style:normal;color:var(--og-primary);position:relative;z-index:0}
+.og-hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:10px;background:rgba(245,183,0,.45);z-index:-1;border-radius:4px}
+.og-hero p{font-size:17px;color:var(--og-muted);margin:16px 0 0;line-height:1.8;max-width:520px}
+.og-hero__cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.og-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:12px;font-weight:700;font-size:15px;white-space:nowrap;text-decoration:none !important;transition:.2s}
+.og-btn--p{background:var(--og-primary) !important;color:#fff !important;box-shadow:0 8px 20px -8px rgba(0,111,191,.6)}
+.og-btn--p:hover{background:var(--og-primary-dark) !important;transform:translateY(-1px)}
+.og-btn--o{background:#fff !important;color:var(--og-text) !important;border:1.5px solid var(--og-border)}
+.og-hero__trust{display:flex;gap:22px;margin-top:30px;flex-wrap:wrap}
+.og-hero__trust span{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--og-text)}
+.og-hero__trust span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--og-primary);flex:none}
+.og-fan{position:relative;height:460px;perspective:1600px}
+.og-fan__c{position:absolute;border-radius:18px;overflow:hidden;box-shadow:0 40px 70px -24px rgba(11,37,69,.45),0 10px 24px -12px rgba(11,37,69,.2);transform-origin:center bottom;background:#dfe6ef}
+.og-fan__c img{width:100%;height:100%;object-fit:cover;display:block}
+.og-fan__c1{width:200px;height:300px;left:20px;top:110px;transform:rotate(-12deg);filter:brightness(.9)}
+.og-fan__c2{width:220px;height:330px;left:140px;top:70px;transform:rotate(-5deg)}
+.og-fan__c3{width:250px;height:375px;left:290px;top:30px;transform:rotate(3deg);z-index:2}
+.og-fan__c4{width:210px;height:315px;left:470px;top:90px;transform:rotate(11deg);filter:brightness(.92)}
+.og-fan__tag{position:absolute;background:#fff;border:1.5px solid var(--og-border);border-radius:14px;padding:10px 14px;box-shadow:0 14px 30px -12px rgba(11,37,69,.35);display:flex;gap:10px;align-items:center;z-index:3}
+.og-fan__tag b{font-size:15px;color:var(--og-text);display:block}
+.og-fan__tag small{display:block;color:var(--og-muted);font-size:12px;font-weight:500}
+.og-fan__tag i{width:36px;height:36px;border-radius:10px;background:var(--og-primary-soft);display:flex;align-items:center;justify-content:center;color:var(--og-primary);font-style:normal;font-weight:800}
+.og-fan__t1{right:-10px;top:40px}
+.og-fan__t2{left:10px;bottom:10px}
+.og-hero__wave{position:absolute;left:0;right:0;bottom:-2px;height:90px;display:block}
+.og-hero__wave path{fill:#fff}
+@media (max-width:900px){
+  .og-hero{padding:28px 0 90px}
+  .og-hero__wrap{grid-template-columns:1fr;gap:18px;padding-inline:16px}
+  .og-hero h1{font-size:30px}.og-hero p{font-size:14px;margin-top:10px}
+  .og-hero__cta .og-btn{height:44px;padding:0 16px;font-size:14px}
+  .og-hero__trust{gap:14px;margin-top:18px}.og-hero__trust span{font-size:12px}
+  .og-fan{height:250px;order:-1}
+  .og-fan__c1{width:104px;height:156px;left:4px;top:60px}.og-fan__c2{width:116px;height:174px;left:70px;top:40px}.og-fan__c3{width:132px;height:198px;left:150px;top:18px}.og-fan__c4{width:110px;height:165px;left:250px;top:50px}
+  .og-fan__tag{padding:8px 10px;border-radius:12px}.og-fan__tag b{font-size:12px}.og-fan__tag small{font-size:10px}.og-fan__tag i{width:28px;height:28px}
+  .og-fan__t1{right:0;top:0}.og-fan__t2{left:0;bottom:-6px}
+  .og-hero__wave{height:50px}
+}
+
+/* ---------- 13. الأقسام كشرائح (يبنيها home.js) ---------- */
+.og-cats{background:#fff !important;padding:26px 0 10px !important}
+.og-cats .s-block__title,.og-cats salla-slider{display:none !important}
+.og-chips{display:flex;gap:12px;flex-wrap:wrap}
+.og-chip{display:flex;align-items:center;gap:10px;height:52px;padding:0 18px 0 14px;border:1.5px solid var(--og-border);border-radius:14px;font-weight:700;font-size:15px;background:#fff;color:var(--og-text) !important;text-decoration:none !important;transition:.2s}
+.og-chip:hover{border-color:var(--og-primary);background:var(--og-primary-soft);color:var(--og-primary) !important}
+.og-chip img{width:30px;height:30px;border-radius:9px;object-fit:cover}
+@media (max-width:640px){
+  .og-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+  .og-chips::-webkit-scrollbar{display:none}
+  .og-chip{flex:none;height:46px;font-size:14px}
+}
+
+/* ---------- 14. شريط وعد التسليم: 4 بطاقات ---------- */
+.og-delivery{background:#fff !important;padding:14px 0 44px !important;border:0 !important}
+.og-delivery .s-block__title{display:none !important}
+.og-delivery .grid{gap:14px !important;align-items:stretch !important}
+.og-delivery .angel-feature{flex-direction:row !important;align-items:flex-start !important;justify-content:flex-start !important;gap:14px;padding:18px;border:1.5px solid var(--og-border);border-radius:16px;background:var(--og-bg);text-align:right}
+.og-delivery .angel-feature > .flex-center:first-child{width:44px !important;height:44px !important;border-radius:12px;background:#fff;border:1.5px solid var(--og-border);flex:none}
+.og-delivery .angel-feature i{font-size:22px !important;color:var(--og-primary) !important}
+.og-delivery .angel-feature > .flex-center:last-child{align-items:flex-start !important;margin-top:0 !important;min-width:0}
+.og-delivery .angel-feature p{text-align:right !important}
+.og-delivery .angel-feature p:first-child{font-size:15px !important;font-weight:700 !important;color:var(--og-text) !important}
+.og-delivery .angel-feature p:last-child{font-size:13px !important;color:var(--og-muted) !important;line-height:1.6}
+@media (max-width:640px){.og-delivery .angel-feature{flex-direction:column !important;gap:8px;padding:12px}.og-delivery .angel-feature p:first-child{font-size:13px !important}.og-delivery .angel-feature p:last-child{font-size:11px !important}}
+
+/* ---------- 15. البكجات: شريط نيلي بموجة ---------- */
+.og-offline{position:relative;background:var(--og-text) !important;color:#fff;padding:96px 0 70px !important;margin-top:40px;overflow:hidden}
+.og-offline::before{content:"";position:absolute;inset:0;background:radial-gradient(800px 300px at 20% 0%,rgba(0,111,191,.45),transparent 60%),radial-gradient(600px 300px at 90% 100%,rgba(245,183,0,.18),transparent 60%);pointer-events:none}
+.og-offline::after{content:"";position:absolute;left:0;right:0;top:-1px;height:80px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath d='M0 40 C 240 0, 420 0, 720 40 S 1200 90, 1440 30 L1440 0 L0 0 Z' fill='%23ffffff'/%3E%3C/svg%3E") center/100% 100% no-repeat;pointer-events:none}
+.og-offline .container{position:relative;z-index:1}
+.og-offline .s-block__title h2{color:#fff !important}
+.og-offline .s-block__title h2::before{background:#F5B700}
+.og-offline .s-block__title p{color:rgba(255,255,255,.72) !important}
+.og-offline a.s-block__title-link,.og-offline .title-wrapper a{color:#fff !important}
+.og-offline .s-product-card-entry{background:rgba(255,255,255,.06) !important;border:1px solid rgba(255,255,255,.14) !important;color:#fff !important;backdrop-filter:blur(6px);box-shadow:none}
+.og-offline .s-product-card-content-title a,.og-offline .s-product-card-price{color:#fff !important}
+.og-offline .s-product-card-content-subtitle{color:rgba(255,255,255,.7) !important}
+.og-offline .s-product-card-image{background:#0f2a4e !important}
+.og-offline salla-add-product-button .s-button-element{background:#fff !important;color:var(--og-text) !important;border-color:#fff !important}
+.og-offline .s-slider-nav button,.og-offline .s-slider-block__title-nav button{color:#fff !important;border-color:rgba(255,255,255,.3) !important}
+.og-stats{display:flex;gap:40px;margin:36px auto 0;max-width:1460px;padding:0 10px;position:relative;z-index:1;flex-wrap:wrap}
+.og-stats b{font-size:28px;font-weight:800;display:block;color:#fff;line-height:1.2}
+.og-stats small{color:rgba(255,255,255,.72);font-size:13px}
+@media (max-width:640px){.og-offline{padding:60px 0 44px !important}.og-offline::after{height:40px}.og-stats{gap:20px;margin-top:22px}.og-stats b{font-size:20px}}
+
+/* ---------- 16. بطاقات المنتجات (الأكثر مبيعاً وكل القوائم) ---------- */
+.s-product-card-entry{transition:transform .2s,box-shadow .2s;overflow:hidden}
+.s-product-card-entry:hover{transform:translateY(-4px);box-shadow:0 24px 50px -24px rgba(11,37,69,.35)}
+.s-product-card-image{background:#eef2f7 !important}
+.s-product-card-image img{transition:transform .4s}
+.s-product-card-entry:hover .s-product-card-image img{transform:scale(1.03)}
+.s-product-card-content-title{font-size:15px !important}
+.s-product-card-price{font-size:1.25rem !important;font-weight:800 !important}
+salla-add-product-button .s-button-element{border-radius:10px !important;font-weight:700 !important}
+.og-bestsellers .s-products-list-wrapper{gap:18px !important}
+
+/* ---------- 17. كيف توصلك: خط زمني مرقّم ---------- */
+.og-steps{background:transparent !important;padding:54px 0 10px !important}
+.og-steps .grid{position:relative;margin-top:10px}
+.og-steps .grid::before{content:"";position:absolute;top:28px;right:16%;left:16%;border-top:2px dashed #c9d4e2;z-index:0}
+.og-steps .angel-feature{counter-increment:ogstep;position:relative;padding:0 10px}
+.og-steps .grid{counter-reset:ogstep}
+.og-steps .angel-feature > .flex-center:first-child{width:56px !important;height:56px !important;border-radius:50%;background:#fff;border:2px solid var(--og-primary);position:relative;z-index:1;box-shadow:0 0 0 8px var(--og-bg);margin:0 auto 14px}
+.og-steps .angel-feature > .flex-center:first-child i{display:none !important}
+.og-steps .angel-feature > .flex-center:first-child::before{content:counter(ogstep);font-weight:800;font-size:20px;color:var(--og-primary)}
+.og-steps .angel-feature p:first-child{font-size:17px !important;font-weight:700 !important;color:var(--og-text) !important}
+.og-steps .angel-feature p:last-child{font-size:14px !important;color:var(--og-muted) !important;line-height:1.7}
+@media (max-width:640px){
+  .og-steps .grid{grid-template-columns:1fr !important;gap:14px !important}
+  .og-steps .grid::before{display:none}
+  .og-steps .angel-feature{flex-direction:row !important;align-items:flex-start !important;gap:14px;text-align:right}
+  .og-steps .angel-feature > .flex-center:first-child{margin:0;width:44px !important;height:44px !important;box-shadow:none;flex:none}
+  .og-steps .angel-feature > .flex-center:first-child::before{font-size:16px}
+  .og-steps .angel-feature > .flex-center:last-child{align-items:flex-start !important;margin-top:0 !important}
+  .og-steps .angel-feature p{text-align:right !important}
+}
+
+/* ---------- 18. الثقة: بطاقات بيضاء + شعارات الدفع ---------- */
+.og-trust{background:transparent !important;padding:54px 0 10px !important}
+.og-trust .grid{gap:16px !important;align-items:stretch !important}
+.og-trust .angel-feature{flex-direction:row !important;align-items:center !important;justify-content:flex-start !important;gap:16px;background:#fff;border:1.5px solid var(--og-border);border-radius:16px;padding:20px 22px;text-align:right}
+.og-trust .angel-feature > .flex-center:first-child{width:56px !important;height:56px !important;flex:none}
+.og-trust .angel-feature > .flex-center:last-child{align-items:flex-start !important;margin-top:0 !important;min-width:0}
+.og-trust .angel-feature p{text-align:right !important}
+.og-trust .angel-feature p:first-child{font-size:16px !important;font-weight:700 !important;color:var(--og-text) !important}
+.og-trust .angel-feature p:last-child{font-size:13px !important;color:var(--og-muted) !important}
+.og-trust img{max-height:56px}
+@media (max-width:640px){.og-trust .grid{grid-template-columns:1fr !important}}
+
+/* ---------- 19. الأسئلة الشائعة ---------- */
+.s-block--faqs{padding:54px 0 20px !important}
+.faqs-list__item{background:#fff !important;border:1.5px solid var(--og-border) !important;border-radius:14px !important}
+.faqs-list__item label{font-weight:700 !important;font-size:15px !important;color:var(--og-text) !important;padding:16px 18px !important}
+.faqs-list__item .answer-container{color:var(--og-muted)}
+
+/* ---------- 20. الفوتر النيلي بموجة ---------- */
+.store-footer{position:relative;margin-top:80px;border-top:0 !important}
+.store-footer::before{content:"";position:absolute;left:0;right:0;top:-1px;height:70px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 70' preserveAspectRatio='none'%3E%3Cpath d='M0 35 C 240 0, 420 0, 720 35 S 1200 80, 1440 25 L1440 0 L0 0 Z' fill='%23F5F8FC'/%3E%3C/svg%3E") center/100% 100% no-repeat;pointer-events:none;z-index:1}
+.store-footer__inner{background:var(--og-text) !important;color:#fff !important;padding-top:90px !important}
+.store-footer__inner *{color:#fff}
+.store-footer__inner a:hover{color:#F5B700 !important}
+.store-footer__inner h3,.store-footer__inner h4,.store-footer__inner .footer-title,.store-footer__inner .title{color:#F5B700 !important;font-weight:700}
+.store-footer__inner .text-gray-400,.store-footer__inner .opacity-75,.store-footer__inner p{color:rgba(255,255,255,.72) !important}
+.store-footer__inner .s-payments-list-item{background:#fff !important;border-color:transparent !important}
+.store-footer__inner .footer-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:30px;padding-top:18px}
+.store-footer__inner .to-top a{color:rgba(255,255,255,.8) !important}
+@media (max-width:640px){.store-footer{margin-top:50px}.store-footer::before{height:40px}.store-footer__inner{padding-top:60px !important}}
+/* إصلاحات بعد المعاينة الحية */
+.store-footer__inner{--footer-bg:var(--og-text) !important}
+.og-offline a,.og-offline .s-block__title a{color:#fff !important}
+.store-footer__inner .footer-social a,.store-footer__inner .footer-middle .s-button-element,.store-footer__inner .rounded-full{background:rgba(255,255,255,.1) !important;border-color:rgba(255,255,255,.2) !important}

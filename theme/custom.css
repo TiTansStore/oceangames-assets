@@ -1,0 +1,416 @@
+/* ==========================================================================
+   اوشن قيمز — الاتجاه ج "الواجهة الواضحة" (فاتح)
+   ملف: custom.css  |  الإصدار: v0.1.2 (الخط Alexandria؛ حُذف تخطيط الأكثر مبيعاً الأفقي للجوال)  |  2026-10-26
+   الثيم: ملاك (Twig) — نسخة العمل 1194075878 فقط (غير منشورة)
+   --------------------------------------------------------------------------
+   قواعد الملف:
+   - لا يغيّر أي شيء في السلة أو الدفع (لا محددات لـ /cart أو /checkout).
+   - المحددات: مكونات سلة الثابتة (salla-*, .s-*) + كلاسات أضفناها بأنفسنا
+     في حقل Classes بعناصر الرئيسية (og-*) + عناصر يبنيها custom.js (og-*).
+   - ما فيه محددات مبنية على ترتيب العناصر (nth-child) لأنها تنكسر مع تحديث ملاك.
+   - ألوان التباين (WCAG): أزرق #006FBF مع أبيض 5.22:1 | نص #0B2545 على
+     الخلفية 14.45:1 | ثانوي #5B6B82 على الأبيض 5.43:1 | شارة #F5B700 مع
+     نص #0B2545 8.54:1.
+   الفهرس:
+     0. المتغيرات (Tokens)
+     1. أساسيات الصفحة والخط والأرقام
+     2. الأزرار (تباين الأساسي)
+     3. بطاقات المنتجات (فاتحة)
+     4. الشارات (العنوان الترويجي)
+     5. الرئيسية: أقسامنا og-*
+     6. صفحة المنتج: صندوق "وش تستلم" + شريط التسليم (يبنيهما custom.js)
+     7. الفوتر وشعارات الدفع
+     8. الجوال
+     9. الحركة (إيقاف أنيميشن الظهور)
+   ========================================================================== */
+
+
+/* 0. المتغيرات --------------------------------------------------------------
+   نعيد تعريف متغيرات سلة الأساسية لهذه النسخة فقط، بدل تغيير لون المتجر
+   العام (#0099e5) من لوحة الهوية لأنه يأثر على النسخة الحية. */
+:root,
+html:root {
+  --og-bg: #F5F8FC;          /* الخلفية */
+  --og-surface: #FFFFFF;     /* السطح والبطاقات */
+  --og-border: #E1E7EF;      /* الحدود */
+  --og-text: #0B2545;        /* النص الأساسي */
+  --og-muted: #5B6B82;       /* النص الثانوي */
+  --og-primary: #006FBF;     /* الأزرار والروابط */
+  --og-primary-dark: #005A9C;/* حالة التمرير/الضغط (7.14:1 مع الأبيض) */
+  --og-primary-soft: #E6F1FA;/* خلفيات خفيفة */
+  --og-badge: #F5B700;       /* الشارات المميزة */
+  --og-success: #12B76A;     /* أيقونات فقط، لا يُستخدم كلون نص */
+  --og-radius: 12px;
+  --og-radius-sm: 8px;
+  --og-shadow: 0 1px 2px rgba(11, 37, 69, .06), 0 2px 8px rgba(11, 37, 69, .04);
+
+  /* متغيرات سلة القياسية (Twilight) */
+  --color-primary: var(--og-primary);
+  --color-primary-dark: var(--og-primary-dark);
+  --color-primary-light: var(--og-primary-soft);
+  --color-primary-reverse: #FFFFFF;
+}
+
+
+/* 1. أساسيات الصفحة والخط والأرقام ---------------------------------------- */
+body {
+  background-color: var(--og-bg);
+  color: var(--og-text);
+  font-family: "Alexandria", system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* الأسعار والأرقام بعرض ثابت (ما تتراقص الأرقام بين البطاقات) */
+.s-product-card-price,
+.s-product-card-sale-price,
+.total-price,
+.before-price,
+.price-wrapper,
+.s-cart-summary-total,
+.og-receive__value,
+salla-quantity-input {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* الروابط داخل المحتوى */
+.product__description a,
+.article-content a,
+.og-receive a {
+  color: var(--og-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+
+/* 2. الأزرار (تباين الأساسي) ----------------------------------------------
+   الزر القديم #0099e5 مع أبيض = 3.14:1 (أقل من 4.5). الجديد 5.22:1. */
+.s-button-primary,
+.s-button-solid.s-button-primary,
+.s-button-element.s-button-primary,
+.btn--primary,
+.btn-primary,
+salla-add-product-button .s-button-element:not(.s-button-outline) {
+  background-color: var(--og-primary) !important;
+  border-color: var(--og-primary) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border-radius: var(--og-radius-sm);
+}
+
+.s-button-primary:hover,
+.s-button-element.s-button-primary:hover,
+.btn--primary:hover,
+salla-add-product-button .s-button-element:not(.s-button-outline):hover {
+  background-color: var(--og-primary-dark) !important;
+  border-color: var(--og-primary-dark) !important;
+}
+
+/* الأزرار المحددة (Outline) */
+.s-button-outline.s-button-primary,
+.s-button-primary-outline {
+  background-color: transparent !important;
+  color: var(--og-primary) !important;
+  border-color: var(--og-primary) !important;
+}
+
+/* تركيز واضح للوحة المفاتيح */
+.s-button-element:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--og-badge);
+  outline-offset: 2px;
+}
+
+
+/* 3. بطاقات المنتجات (فاتحة) ----------------------------------------------
+   الإعدادات تكفّلت بالخلفية البيضاء والإطار (card_bg_color/card_border_color).
+   هنا نوحّد الظل والزوايا ولون النص. */
+.s-product-card-entry,
+custom-salla-product-card,
+salla-product-card {
+  background-color: var(--og-surface);
+  border: 1px solid var(--og-border);
+  border-radius: var(--og-radius);
+  box-shadow: var(--og-shadow);
+  color: var(--og-text);
+}
+
+.s-product-card-content-title,
+.s-product-card-content-title a {
+  color: var(--og-text);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.s-product-card-content-subtitle {
+  color: var(--og-muted);
+}
+
+.s-product-card-price {
+  color: var(--og-text);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+/* صورة البطاقة: خلفية محايدة حول الصور الداكنة الحالية */
+.s-product-card-image {
+  background-color: #0B2545;
+  border-radius: calc(var(--og-radius) - 2px) calc(var(--og-radius) - 2px) 0 0;
+}
+
+
+/* 4. الشارات (العنوان الترويجي) -------------------------------------------
+   الإعداد card_promo_bg = #006FBF (آمن مع نص أبيض لو ما اشتغل هذا الملف).
+   مع هذا الملف تصير الشارة صفراء بنص نيلي (8.54:1). اللون والخلفية معاً
+   في نفس القاعدة، فما يصير أبيض على أصفر أبداً. */
+.s-product-card-promotion-title,
+.promotion-title {
+  background-color: var(--og-badge) !important;
+  color: var(--og-text) !important;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+
+/* 5. الرئيسية: أقسامنا og-* -----------------------------------------------
+   الكلاسات مضافة من حقل Classes في عناصر الرئيسية (نسخة 1194075878):
+   og-cats (الأقسام) | og-delivery (وعد التسليم) | og-offline (البكجات + FC 27)
+   og-bestsellers (الأكثر مبيعاً) | og-steps (كيف توصلك) | og-trust (موثّق + الدفع) */
+
+/* 5.1 بلوكات المميزات الثلاثة: سطح أبيض بإطار خفيف */
+.og-delivery,
+.og-steps,
+.og-trust {
+  background-color: transparent;
+}
+
+.og-delivery h2,
+.og-steps h2,
+.og-trust h2 {
+  color: var(--og-text);
+  font-weight: 700;
+}
+
+.og-delivery p,
+.og-steps p,
+.og-trust p {
+  color: var(--og-muted);
+}
+
+.og-delivery [class*="icon"],
+.og-steps [class*="icon"],
+.og-trust [class*="icon"] {
+  color: var(--og-primary);
+}
+
+/* 5.2 شريط وعد التسليم: إطار أزرق خفيف يميّزه عن باقي الأقسام */
+.og-delivery {
+  border-block: 1px solid var(--og-border);
+  background-color: var(--og-surface);
+}
+
+/* 5.3 الثقة: صورة شهادة المركز بحجم مقروء */
+.og-trust img {
+  max-height: 56px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* 5.4 صف شعارات الدفع اللي ينسخه custom.js من الفوتر داخل قسم الثقة */
+.og-trust .og-pay-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.og-trust .og-pay-row li,
+.og-trust .og-pay-row .s-payments-list-item {
+  background: var(--og-surface);
+  border: 1px solid var(--og-border);
+  border-radius: var(--og-radius-sm);
+  padding: 6px 8px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.og-trust .og-pay-row img {
+  max-height: 30px;
+  width: auto;
+}
+
+/* 6. صفحة المنتج: صندوق "وش تستلم" + شريط التسليم --------------------------
+   العناصر التالية يبنيها custom.js من قائمة "ملخص قبل الشراء" في وصف المنتج.
+   إذا ما فيه ملخص، ما يظهر الصندوق (ما نخترع معلومات). */
+.og-receive {
+  background: var(--og-surface);
+  border: 1px solid var(--og-border);
+  border-radius: var(--og-radius);
+  box-shadow: var(--og-shadow);
+  padding: 14px;
+  margin: 12px 0;
+  color: var(--og-text);
+}
+
+.og-receive__title {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--og-text);
+}
+
+.og-receive__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.og-receive__cell {
+  background: var(--og-bg);
+  border: 1px solid var(--og-border);
+  border-radius: var(--og-radius-sm);
+  padding: 10px;
+  min-width: 0;
+}
+
+.og-receive__label {
+  display: block;
+  font-size: .75rem;
+  color: var(--og-muted);
+  margin-bottom: 2px;
+}
+
+.og-receive__value {
+  display: block;
+  font-size: .875rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--og-text);
+  overflow-wrap: anywhere;
+}
+
+/* شريط التسليم تحت الصندوق */
+.og-delivery-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 12px;
+  padding: 10px 12px;
+  border-radius: var(--og-radius-sm);
+  background: var(--og-primary-soft);   /* نص #0B2545 عليها 13.43:1 */
+  color: var(--og-text);
+  font-size: .875rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.og-delivery-bar__dot {
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--og-primary);
+}
+
+.og-delivery-bar--auto .og-delivery-bar__dot {
+  background: var(--og-success);        /* أيقونة فقط، ليس نص */
+}
+
+/* إخفاء عام يستخدمه custom.js (شريط الشارة القديم، عداد الشراء، الكمية المتبقية) */
+.og-hide {
+  display: none !important;
+}
+
+
+/* 7. الفوتر وشعارات الدفع -------------------------------------------------- */
+.s-payments-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.s-payments-list-item {
+  background: var(--og-surface);
+  border: 1px solid var(--og-border);
+  border-radius: var(--og-radius-sm);
+  padding: 4px 6px;
+}
+
+footer,
+.store-footer {
+  border-top: 1px solid var(--og-border);
+}
+
+
+/* 8. الجوال ----------------------------------------------------------------- */
+@media (max-width: 640px) {
+  /* مسافات أقصر بين أقسام الرئيسية (الصفحة أقصر وأسرع تصفحاً) */
+  .og-cats,
+  .og-delivery,
+  .og-offline,
+  .og-bestsellers,
+  .og-steps,
+  .og-trust {
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .og-delivery h2,
+  .og-steps h2,
+  .og-trust h2,
+  .og-offline h2,
+  .og-bestsellers h2 {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  /* أهداف لمس لا تقل عن 44px */
+  .s-button-element,
+  salla-add-product-button .s-button-element {
+    min-height: 44px;
+  }
+
+  /* صندوق وش تستلم: خانتين بكل صف تبقى مقروءة حتى 320px */
+  .og-receive {
+    padding: 12px;
+  }
+  .og-receive__cell {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 340px) {
+  .og-receive__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* 9. الحركة ------------------------------------------------------------------
+   أنيميشن ملاك متوقف من الإعدادات (wow_animate=false). هذا احتياط لو بقي
+   كلاس wow على عنصر، حتى ما يبقى مخفي بانتظار حركة ما تجي. */
+.wow {
+  visibility: visible !important;
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
