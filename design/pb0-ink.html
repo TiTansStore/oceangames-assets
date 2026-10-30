@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;700;800;900&family=Aref+Ruqaa:wght@700&family=Cinzel:wght@500;700&display=block" rel="stylesheet">
+<style>
+/* اوشن قيمز — فانتوم بليد زيرو: هوية "حبر ودم" (بوست 1080 + صورة منتج 1000) */
+:root{--ink:#0b0e0d;--blood:#c3141d;--blood2:#e2262f;--bone:#efe6d6;--ash:#9ea69f}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#000}
+#c{position:relative;overflow:hidden;background:var(--ink);font-family:'Alexandria',sans-serif;color:var(--bone)}
+.art{position:absolute;inset:0;background-repeat:no-repeat;background-color:var(--ink)}
+.shade{position:absolute;inset:0}
+.slash{position:absolute;height:3px;transform-origin:center;border-radius:3px;
+  background:linear-gradient(90deg,rgba(226,38,47,0) 0%,rgba(226,38,47,.9) 30%,#ffd9d3 50%,rgba(226,38,47,.9) 70%,rgba(226,38,47,0) 100%);
+  box-shadow:0 0 22px 4px rgba(226,38,47,.55),0 0 60px 10px rgba(195,20,29,.25)}
+.slash.thin{height:1.5px;opacity:.7;box-shadow:0 0 14px 2px rgba(226,38,47,.45)}
+.grain{position:absolute;inset:0;opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.brand{position:absolute;display:flex;align-items:center;gap:12px;direction:rtl}
+.brand img{height:auto;image-rendering:pixelated;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.brand b{font-weight:700;color:var(--bone);letter-spacing:.2px}
+.plat{position:absolute;direction:ltr;font-family:'Cinzel',serif;font-weight:700;color:var(--ash);display:flex;align-items:center;gap:14px}
+.plat i{display:block;width:6px;height:6px;background:var(--blood2);transform:rotate(45deg)}
+.col{position:absolute;text-align:right}
+.kick{display:flex;align-items:center;gap:14px;justify-content:flex-start;font-weight:500;color:var(--blood2);letter-spacing:.5px}
+.kick::before{content:"";display:block;height:2px;background:var(--blood2)}
+.title{font-family:'Aref Ruqaa',serif;font-weight:700;line-height:.98;color:var(--bone);
+  text-shadow:0 6px 30px rgba(0,0,0,.65),0 0 2px rgba(0,0,0,.4)}
+.title span{display:block}
+.title .red{color:var(--blood2);text-shadow:0 0 28px rgba(226,38,47,.45),0 6px 30px rgba(0,0,0,.7)}
+.en{font-family:'Cinzel',serif;font-weight:500;direction:ltr;text-align:right;color:var(--ash)}
+.ed{display:inline-flex;align-items:center;gap:10px;border:1.5px solid rgba(239,230,214,.35);color:var(--bone);font-weight:500;border-radius:999px}
+.sub{color:#cfd4cd;font-weight:400;line-height:1.55}
+.seal{position:absolute}
+.seal svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.seal .txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff6ec;direction:ltr}
+.seal .amt{font-weight:900;letter-spacing:-1.5px;line-height:1}
+.seal .cur{font-weight:700;direction:rtl;line-height:1;opacity:.95}
+.seal .lbl{font-weight:500;direction:rtl;line-height:1;opacity:.85}
+.cta{position:absolute;display:flex;align-items:center;gap:16px;direction:rtl}
+.cta .btn{background:var(--bone);color:#121514;font-weight:800;border-radius:12px;display:flex;align-items:center;gap:10px}
+.cta .btn::after{content:"";width:0;height:0;border-style:solid;border-color:transparent #121514 transparent transparent}
+.cta .url{direction:ltr;font-family:'Cinzel',serif;font-weight:700;color:var(--ash);letter-spacing:2px}
+
+/* ===== بوست 1080 ===== */
+.post #c{width:1080px;height:1080px}
+.post .art{background-size:auto 1120px;background-position:-1085px -20px}
+.post .shade{background:
+  linear-gradient(270deg,rgba(11,14,13,.97) 0%,rgba(11,14,13,.9) 30%,rgba(11,14,13,.35) 52%,rgba(11,14,13,0) 66%),
+  linear-gradient(0deg,rgba(11,14,13,.95) 0%,rgba(11,14,13,0) 30%),
+  linear-gradient(180deg,rgba(11,14,13,.7) 0%,rgba(11,14,13,0) 16%)}
+.post .slash.a{width:900px;left:300px;top:640px;transform:rotate(-27deg)}
+.post .slash.b{width:560px;left:560px;top:612px;transform:rotate(-27deg)}
+.post .brand{top:46px;right:56px}.post .brand img{width:52px}.post .brand b{font-size:27px}
+.post .plat{top:58px;left:56px;font-size:17px;letter-spacing:4px}
+.post .col{right:56px;top:170px;width:520px}
+.post .kick{font-size:21px}.post .kick::before{width:46px}
+.post .title{font-size:132px;margin-top:20px}
+.post .en{font-size:25px;letter-spacing:8px;margin-top:16px}
+.post .ed{font-size:18px;padding:8px 18px;margin-top:24px}
+.post .sub{font-size:21px;margin-top:22px;max-width:480px}
+.post .seal{width:232px;height:232px;right:70px;top:742px;transform:rotate(-6deg)}
+.post .seal .amt{font-size:66px}.post .seal .cur{font-size:26px;margin-top:8px}.post .seal .lbl{font-size:17px;margin-bottom:10px}
+.post .cta{left:56px;bottom:62px}
+.post .cta .btn{font-size:22px;padding:15px 26px}
+.post .cta .btn::after{border-width:7px 10px 7px 0}
+.post .cta .url{font-size:16px}
+
+/* ===== صورة المنتج 1000 ===== */
+.prod #c{width:1000px;height:1000px}
+.prod .art{background-size:auto 1050px;background-position:-1010px -25px}
+.prod .shade{background:
+  linear-gradient(270deg,rgba(11,14,13,.96) 0%,rgba(11,14,13,.86) 32%,rgba(11,14,13,.3) 55%,rgba(11,14,13,0) 68%),
+  linear-gradient(0deg,rgba(11,14,13,.9) 0%,rgba(11,14,13,0) 26%),
+  linear-gradient(180deg,rgba(11,14,13,.65) 0%,rgba(11,14,13,0) 15%)}
+.prod .slash.a{width:820px;left:270px;top:690px;transform:rotate(-27deg)}
+.prod .slash.b{width:500px;left:520px;top:664px;transform:rotate(-27deg)}
+.prod .brand{top:44px;right:52px}.prod .brand img{width:48px}.prod .brand b{font-size:25px}
+.prod .plat{top:56px;left:52px;font-size:16px;letter-spacing:4px}
+.prod .col{right:52px;top:250px;width:470px}
+.prod .title{font-size:128px}
+.prod .en{font-size:23px;letter-spacing:8px;margin-top:16px}
+.prod .ed{font-size:17px;padding:8px 18px;margin-top:26px}
+.prod .foot{position:absolute;left:52px;bottom:48px;direction:ltr;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:3px;color:var(--ash)}
+</style>
+</head>
+<body>
+<div id="c">
+  <div class="art" id="art"></div>
+  <div class="shade"></div>
+  <div class="slash a"></div><div class="slash thin b"></div>
+  <svg class="grain" viewBox="0 0 400 400" preserveAspectRatio="none"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+  <div class="brand"><img id="logo" alt=""><b>اوشن قيمز</b></div>
+  <div class="plat"><span>PC</span><i></i><span>STEAM</span><i></i><span>OFFLINE</span></div>
+  <div class="col" id="col"></div>
+  <div id="extra"></div>
+</div>
+<script>
+(function(){
+  var M = window.MODE || 'post';
+  document.body.className = M;
+  document.getElementById('art').style.backgroundImage = "url('" + window.HERO + "')";
+  document.getElementById('logo').src = window.LOGO;
+  var col = document.getElementById('col'), ex = document.getElementById('extra');
+  var title = '<div class="title"><span>فانتوم</span><span class="red">بليد زيرو</span></div>' +
+              '<div class="en">PHANTOM BLADE ZERO</div>';
+  if (M === 'post') {
+    col.innerHTML = '<div class="kick">جديد في اوشن قيمز</div>' + title +
+      '<div class="ed">النسخة العادية</div>' +
+      '<p class="sub">أكشن كونغ فو بقصة كاملة من استوديو S-GAME، والعب أوفلاين على الكمبيوتر.</p>';
+    ex.innerHTML =
+      '<div class="seal"><svg viewBox="0 0 232 232"><defs><filter id="rough" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="11"/><feDisplacementMap in="SourceGraphic" scale="10"/></filter>' +
+      '<filter id="spk"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="3"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -2.2 1.2"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>' +
+      '<g filter="url(#rough)"><rect x="10" y="10" width="212" height="212" rx="12" fill="#c3141d"/>' +
+      '<rect x="26" y="26" width="180" height="180" rx="5" fill="none" stroke="#fff3e6" stroke-width="3.5" opacity=".9"/></g>' +
+      '<rect x="10" y="10" width="212" height="212" rx="12" fill="#000" opacity=".18" filter="url(#spk)"/></svg>' +
+      '<div class="txt"><div class="lbl">بسعر</div><div class="amt">39.99</div><div class="cur">ريال</div></div></div>' +
+      '<div class="cta"><div class="btn">اطلبها الحين</div><div class="url">OCEANGAMES.SHOP</div></div>';
+  } else {
+    col.innerHTML = title + '<div class="ed">النسخة العادية</div>';
+    ex.innerHTML = '<div class="foot">OCEANGAMES.SHOP</div>';
+  }
+})();
+</script>
+</body></html>
