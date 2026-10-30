@@ -11,7 +11,8 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:#000}
 #c{position:relative;overflow:hidden;background:var(--ink);font-family:'Alexandria',sans-serif;color:var(--bone)}
-.art{position:absolute;inset:0;background-repeat:no-repeat;background-color:var(--ink)}
+.art{position:absolute;inset:0;background:var(--ink);overflow:hidden}
+.art img{position:absolute;max-width:none;width:auto;display:block}
 .shade{position:absolute;inset:0}
 .slash{position:absolute;height:3px;transform-origin:center;border-radius:3px;
   background:linear-gradient(90deg,rgba(226,38,47,0) 0%,rgba(226,38,47,.9) 30%,#ffd9d3 50%,rgba(226,38,47,.9) 70%,rgba(226,38,47,0) 100%);
@@ -46,13 +47,14 @@ html,body{background:#000}
 
 /* ===== بوست 1080 ===== */
 .post #c{width:1080px;height:1080px}
-.post .art{background-size:auto 1120px;background-position:-1085px -20px}
+.post .art img{height:1080px;left:-1476px;top:0}
 .post .shade{background:
-  linear-gradient(270deg,rgba(11,14,13,.97) 0%,rgba(11,14,13,.9) 30%,rgba(11,14,13,.35) 52%,rgba(11,14,13,0) 66%),
-  linear-gradient(0deg,rgba(11,14,13,.95) 0%,rgba(11,14,13,0) 30%),
-  linear-gradient(180deg,rgba(11,14,13,.7) 0%,rgba(11,14,13,0) 16%)}
-.post .slash.a{width:900px;left:300px;top:640px;transform:rotate(-27deg)}
-.post .slash.b{width:560px;left:560px;top:612px;transform:rotate(-27deg)}
+  linear-gradient(270deg,rgba(11,14,13,.97) 0%,rgba(11,14,13,.9) 28%,rgba(11,14,13,.55) 44%,rgba(11,14,13,0) 64%),
+  linear-gradient(0deg,rgba(11,14,13,.96) 0%,rgba(11,14,13,0) 28%),
+  linear-gradient(180deg,rgba(11,14,13,.75) 0%,rgba(11,14,13,0) 14%),
+  radial-gradient(120% 90% at 30% 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}
+.post .slash.a{width:820px;left:330px;top:742px;transform:rotate(-23deg)}
+.post .slash.b{width:460px;left:610px;top:716px;transform:rotate(-23deg)}
 .post .brand{top:46px;right:56px}.post .brand img{width:52px}.post .brand b{font-size:27px}
 .post .plat{top:58px;left:56px;font-size:17px;letter-spacing:4px}
 .post .col{right:56px;top:170px;width:520px}
@@ -70,13 +72,14 @@ html,body{background:#000}
 
 /* ===== صورة المنتج 1000 ===== */
 .prod #c{width:1000px;height:1000px}
-.prod .art{background-size:auto 1050px;background-position:-1010px -25px}
+.prod .art img{height:1000px;left:-1372px;top:0}
 .prod .shade{background:
-  linear-gradient(270deg,rgba(11,14,13,.96) 0%,rgba(11,14,13,.86) 32%,rgba(11,14,13,.3) 55%,rgba(11,14,13,0) 68%),
-  linear-gradient(0deg,rgba(11,14,13,.9) 0%,rgba(11,14,13,0) 26%),
-  linear-gradient(180deg,rgba(11,14,13,.65) 0%,rgba(11,14,13,0) 15%)}
-.prod .slash.a{width:820px;left:270px;top:690px;transform:rotate(-27deg)}
-.prod .slash.b{width:500px;left:520px;top:664px;transform:rotate(-27deg)}
+  linear-gradient(270deg,rgba(11,14,13,.97) 0%,rgba(11,14,13,.88) 28%,rgba(11,14,13,.5) 44%,rgba(11,14,13,0) 64%),
+  linear-gradient(0deg,rgba(11,14,13,.9) 0%,rgba(11,14,13,0) 24%),
+  linear-gradient(180deg,rgba(11,14,13,.7) 0%,rgba(11,14,13,0) 14%),
+  radial-gradient(120% 90% at 30% 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}
+.prod .slash.a{width:760px;left:300px;top:760px;transform:rotate(-23deg)}
+.prod .slash.b{width:420px;left:560px;top:736px;transform:rotate(-23deg)}
 .prod .brand{top:44px;right:52px}.prod .brand img{width:48px}.prod .brand b{font-size:25px}
 .prod .plat{top:56px;left:52px;font-size:16px;letter-spacing:4px}
 .prod .col{right:52px;top:250px;width:470px}
@@ -88,7 +91,7 @@ html,body{background:#000}
 </head>
 <body>
 <div id="c">
-  <div class="art" id="art"></div>
+  <div class="art" id="art"><img id="hero" alt=""></div>
   <div class="shade"></div>
   <div class="slash a"></div><div class="slash thin b"></div>
   <svg class="grain" viewBox="0 0 400 400" preserveAspectRatio="none"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
@@ -101,7 +104,7 @@ html,body{background:#000}
 (function(){
   var M = window.MODE || 'post';
   document.body.className = M;
-  document.getElementById('art').style.backgroundImage = "url('" + window.HERO + "')";
+  document.getElementById('hero').src = window.HERO;
   document.getElementById('logo').src = window.LOGO;
   var col = document.getElementById('col'), ex = document.getElementById('extra');
   var title = '<div class="title"><span>فانتوم</span><span class="red">بليد زيرو</span></div>' +
