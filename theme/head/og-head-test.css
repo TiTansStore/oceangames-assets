@@ -1,0 +1,3 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+/* og-head-test v1: checks whether Salla keeps non-font rules from the theme font URL */
+:root{--og-headtest:1}
