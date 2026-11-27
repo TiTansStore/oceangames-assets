@@ -362,3 +362,36 @@ setTimeout(run,2500);setTimeout(run,5000);
   };
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',build);}else{build();}
 }catch(e){}})();
+
+/* og v0.2.19 (2026-11-27): جنب اسم المنتج في البطاقات يطلع نوعه: «- ستيم PC» أو «- PS5» أو «- PC» */
+(function(){try{
+  var EN=(document.documentElement.lang||'ar').slice(0,2)==='en';
+  var tag=function(full){
+    if(/PS5|بلايستيشن|playstation/i.test(full))return 'PS5';
+    if(/ستيم|steam/i.test(full))return EN?'Steam PC':'ستيم PC';
+    if(/\bPC\b|windows|للكمبيوتر/i.test(full))return 'PC';
+    return '';
+  };
+  var fix=function(root){
+    if(!root||!root.querySelectorAll)return;
+    var as=root.querySelectorAll('.s-product-card-content-title a');
+    for(var i=0;i<as.length;i++){
+      var a=as[i];if(a.querySelector('.og-plat'))continue;
+      var full=a.getAttribute('title')||a.getAttribute('aria-label')||'';
+      var t=tag(full);if(!t)continue;
+      var shown=(a.textContent||'').trim();
+      if(shown.indexOf(t)>-1||(t==='PS5'&&/بلايستيشن|playstation/i.test(shown))||(t!=='PS5'&&/ستيم|steam/i.test(shown)))continue;
+      var s=document.createElement('span');s.className='og-plat';s.textContent='- '+t;
+      a.appendChild(document.createTextNode(' '));a.appendChild(s);
+    }
+  };
+  var busy=false;
+  var run=function(){busy=false;fix(document.body);};
+  var start=function(){
+    run();
+    if('MutationObserver' in window){new MutationObserver(function(ms){
+      for(var i=0;i<ms.length;i++){var n=ms[i].addedNodes;for(var j=0;j<n.length;j++){if(n[j].nodeType===1&&!(n[j].classList&&n[j].classList.contains('og-plat'))){if(!busy){busy=true;setTimeout(run,120);}return;}}}
+    }).observe(document.body,{childList:true,subtree:true});}
+  };
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
+}catch(e){}})();

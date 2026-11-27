@@ -249,3 +249,7 @@ body.index .s-block--faqs .faq-container:nth-child(n+6){display:none !important}
 
 /* ---------- 25. جديد المتجر: بدون منتجات الطلب والخدمات (v0.2.17, 2026-11-27) ---------- */
 .og-new .swiper-slide:has(a[href*="/p1250936581"]),.og-new .swiper-slide:has(a[href*="/p55392955"]),.og-new .swiper-slide:has(a[href*="/p608048384"]),.og-new .swiper-slide:has(a[href*="/p588324357"]){display:none !important}
+
+/* ---------- 26. نوع المنتج جنب اسمه في البطاقات (v0.2.19, 2026-11-27) ---------- */
+.og-plat{white-space:nowrap;opacity:.72}
+@media (max-width:767px){.s-product-card-content-title:has(.og-plat){-webkit-line-clamp:3 !important;line-clamp:3;max-height:none !important}}
