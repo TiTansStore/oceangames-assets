@@ -288,3 +288,74 @@ setTimeout(run,2500);setTimeout(run,5000);
   };
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
 }catch(e){}})();
+
+/* og v0.2.15 (2026-11-27): الواجهة صارت شرائح تتبدل: ألعاب الأوفلاين، ألعاب بلايستيشن 5، ألعاب الأونلاين */
+(function(){try{
+  if((document.documentElement.lang||'ar').slice(0,2)==='en')return;
+  var path=(location.pathname||'').replace(/\/+$/,'');
+  if(!(path===''||path==='/ar'))return;
+  var J='https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@c0ef37b79f9f3af2173e7134c27849494cb9f7b5/hero/';
+  var ST='https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/';
+  var O='/ar/';
+  var SL=[
+    {t:'ألعاب بلايستيشن 5',em:'من 74.99 ر.س',p:'قراند 6، إلدن رينغ، ريزدنت ايفل ريكويم وغيرها، تلعبها من حسابك الشخصي مع ضمان سنة.',
+     b1:['تصفح ألعاب بلايستيشن',O+'playstation/c477347009'],b2:['اطلب قراند 6',O+'grand-theft-auto-6-ps5-primary/p822014425'],
+     c:[[J+'ps5/elden-400.webp',O+'elden-ring-ps5-primary/p298056513','إلدن رينغ'],
+        ['https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@72f40e9/hero/light/phantom-blade-zero-poster-300.webp',O+'phantom-blade-zero-ps5-primary/p1513787734','فانتوم بليد زيرو'],
+        [J+'ps5/gta6-400.webp',O+'grand-theft-auto-6-ps5-primary/p822014425','قراند 6','قراند 6، 169.99 ر.س'],
+        [J+'ps5/requiem-400.webp',O+'resident-evil-requiem-ps5-primary/p1732692940','ريزدنت ايفل ريكويم','ريكويم، 84.99 ر.س']]},
+    {t:'ألعاب أونلاين',em:'من 9.99 ر.س',p:'مودرن وارفير 4، آرك رايدرز، فيفا 27 وريد ديد 2 على حساب ستيم خاص بك، تغير بياناته وتلعب أونلاين.',
+     b1:['تصفح ألعاب الأونلاين',O+'onlinegames/c917561752'],b2:['اطلب مودرن وارفير 4',O+'call-of-duty-modern-warfare-4-steam-account/p1077039676'],
+     c:[[ST+'1174180/library_600x900.jpg',O+'red-dead-redemption-2-steam-account/p507495291','ريد ديد ريدمبشن 2'],
+        [J+'fc27.webp',O+'ea-sports-fc-27-steam-account/p111606232','فيفا 27'],
+        [J+'mw4.webp',O+'call-of-duty-modern-warfare-4-steam-account/p1077039676','مودرن وارفير 4','الأكثر مبيعا، 184.99 ر.س'],
+        [ST+'1808500/library_600x900.jpg',O+'arc-raiders-steam-account/p1344660420','آرك رايدرز','99.90 ر.س']]}
+  ];
+  var tries=0;
+  var build=function(){
+    var hero=document.querySelector('.og-hero');
+    if(!hero){if(++tries<40)setTimeout(build,250);return;}
+    if(hero.querySelector('.og-hs'))return;
+    var w0=hero.querySelector('.og-hero__wrap');if(!w0)return;
+    var span0=w0.querySelector('.og-fan a span');var spanCls=span0?span0.className:'';
+    var hs=document.createElement('div');hs.className='og-hs';
+    w0.parentNode.insertBefore(hs,w0);hs.appendChild(w0);w0.classList.add('og-hs__s','is-on');
+    SL.forEach(function(s){
+      var w=w0.cloneNode(true);w.classList.remove('is-on');w.setAttribute('aria-hidden','true');
+      var h1=w.querySelector('h1');var emOld=h1?h1.querySelector('em'):null;
+      var h=document.createElement('h2');h.className='og-hs-t';h.appendChild(document.createTextNode(s.t));h.appendChild(document.createElement('br'));
+      var em=document.createElement('em');if(emOld)em.className=emOld.className;em.textContent=s.em;h.appendChild(em);
+      if(h1)h1.parentNode.replaceChild(h,h1);
+      var p=w.querySelector('p');if(p)p.textContent=s.p;
+      var bs=w.querySelectorAll('.og-hero__cta a');
+      if(bs[0]){bs[0].textContent=s.b1[0];bs[0].href=s.b1[1];}
+      if(bs[1]){bs[1].textContent=s.b2[0];bs[1].href=s.b2[1];}
+      var cs=w.querySelectorAll('.og-fan a');
+      for(var i=0;i<cs.length&&i<s.c.length;i++){
+        var a=cs[i],d=s.c[i];a.href=d[1];a.setAttribute('aria-label',d[2]);
+        var im=a.querySelector('img');if(im){im.removeAttribute('srcset');im.removeAttribute('data-src');im.src=d[0];im.alt=d[2];}
+        var sp=a.querySelector('span');
+        if(d[3]){if(!sp){sp=document.createElement('span');sp.className=spanCls;a.insertBefore(sp,a.firstChild);}sp.textContent=d[3];}
+        else if(sp){sp.parentNode.removeChild(sp);}
+      }
+      hs.appendChild(w);
+    });
+    var slides=hs.children,n=slides.length,cur=0,timer=null;
+    var dots=document.createElement('div');dots.className='og-hdots';
+    var go=function(k){
+      slides[cur].classList.remove('is-on');slides[cur].setAttribute('aria-hidden','true');
+      cur=(k+n)%n;slides[cur].classList.add('is-on');slides[cur].removeAttribute('aria-hidden');
+      for(var j=0;j<dots.children.length;j++)dots.children[j].classList.toggle('is-on',j===cur);
+    };
+    var restart=function(){clearInterval(timer);timer=setInterval(function(){if(!document.hidden)go(cur+1);},6500);};
+    for(var k=0;k<n;k++){(function(k){var b=document.createElement('button');b.type='button';b.setAttribute('aria-label','الشريحة '+(k+1));b.addEventListener('click',function(){go(k);restart();});dots.appendChild(b);})(k);}
+    hs.parentNode.insertBefore(dots,hs.nextSibling);
+    go(0);restart();
+    hero.addEventListener('mouseenter',function(){clearInterval(timer);});
+    hero.addEventListener('mouseleave',restart);
+    var sx=null;
+    hs.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+    hs.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40){go(cur+(dx>0?1:-1));restart();}sx=null;},{passive:true});
+  };
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',build);}else{build();}
+}catch(e){}})();
