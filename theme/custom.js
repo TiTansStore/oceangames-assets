@@ -251,3 +251,30 @@ var run=function(){
 if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}else{run();}
 setTimeout(run,2500);setTimeout(run,5000);
 }catch(e){}})();
+
+/* og v0.2.13 (2026-11-27): شيل التشكيل (الشدة والفتحة والضمة والكسرة والسكون والتنوين) من نصوص الموقع. ما يلمس السلة والدفع والطلبات. */
+(function(){try{
+  var path=(location.pathname||'').toLowerCase();
+  if(/\/(cart|checkout|payment|payments|thank-you|orders?)(\/|$)/.test(path))return;
+  var RG=/[ً-ْٰ]/g, RT=/[ً-ْٰ]/;
+  var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,INPUT:1,NOSCRIPT:1,CODE:1,PRE:1,SELECT:1,OPTION:1};
+  var fixText=function(t){if(t.nodeValue&&RT.test(t.nodeValue)){var p=t.parentNode;if(p&&!SKIP[p.nodeName]&&!p.isContentEditable)t.nodeValue=t.nodeValue.replace(RG,'');}};
+  var walk=function(root){
+    if(!root)return;
+    if(root.nodeType===3){fixText(root);return;}
+    if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;
+    if(root.nodeType===1&&SKIP[root.nodeName])return;
+    var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),n,a=[];
+    while((n=w.nextNode()))a.push(n);
+    for(var i=0;i<a.length;i++)fixText(a[i]);
+    if(root.querySelectorAll){var ph=root.querySelectorAll('[placeholder],[title],[aria-label]');for(var j=0;j<ph.length;j++){['placeholder','title','aria-label'].forEach(function(k){var v=ph[j].getAttribute(k);if(v&&RT.test(v))ph[j].setAttribute(k,v.replace(RG,''));});}}
+  };
+  var queue=[],busy=false;
+  var flush=function(){busy=false;var q=queue;queue=[];for(var i=0;i<q.length;i++)walk(q[i]);};
+  var start=function(){
+    walk(document.body);
+    if(document.title&&RT.test(document.title))document.title=document.title.replace(RG,'');
+    if('MutationObserver' in window){new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var m=ms[i];if(m.type==='characterData'){if(RT.test(m.target.nodeValue||''))queue.push(m.target);}else{for(var j=0;j<m.addedNodes.length;j++)queue.push(m.addedNodes[j]);}}if(queue.length&&!busy){busy=true;(window.requestAnimationFrame||setTimeout)(flush);}}).observe(document.body,{childList:true,subtree:true,characterData:true});}
+  };
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
+}catch(e){}})();
