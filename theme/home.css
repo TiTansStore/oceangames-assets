@@ -201,10 +201,19 @@ body.index .s-block--faqs .faq-container:nth-child(n+6){display:none !important}
    بكجات 1786185712/553799162، أونلاين 1146889969/1928293627، بلايستيشن 818005567/1286966212،
    استلم طلبك 759729420/512928453. ويخفي صف الخدمات الفاضي في أقسام المتجر. */
 
-/* ---------- 23. آراء العملاء: إحصائيات (v0.2.11, 2026-11-27) ---------- */
-.og-tstats{display:flex;justify-content:center;margin:4px auto 22px;max-width:760px}
-.og-tstats>div{flex:1 1 0;text-align:center;padding:6px 12px;min-width:0}
-.og-tstats>div+div{border-inline-start:1px solid #E1E7EF}
-.og-tstats b{display:block;font-size:30px;font-weight:800;line-height:1.2;color:#0B2545;direction:ltr;unicode-bidi:isolate}
-.og-tstats small{display:block;margin-top:4px;font-size:14px;color:#5A6478}
-@media (max-width:640px){.og-tstats{margin:0 auto 14px}.og-tstats b{font-size:20px}.og-tstats small{font-size:12px}.og-tstats>div{padding:4px 6px}}
+/* ---------- 23. آراء العملاء: إحصائيات بأيقونات متحركة (v0.2.12, 2026-11-27) ---------- */
+.og-tstats{display:flex;justify-content:center;gap:56px;margin:8px auto 28px;max-width:960px}
+.og-tstats>div{display:flex;align-items:center;gap:14px;flex:0 1 auto;text-align:start}
+.og-ti{flex:0 0 62px;width:62px;height:62px;border-radius:50%;background:#EAF3FC;color:#0B2545;display:grid;place-items:center;position:relative;overflow:hidden}
+.og-ti::after{content:"";position:absolute;left:50%;bottom:-21px;width:74px;height:34px;border-radius:50%;background:#006FBF;transform:translateX(-50%)}
+.og-ti svg{width:28px;height:28px;position:relative;top:-5px;transform-origin:50% 60%}
+.og-ti--cart svg{animation:og-cart 2.6s ease-in-out infinite}
+.og-ti--star svg{animation:og-star 2.2s ease-in-out infinite}
+.og-ti--users svg{animation:og-users 2.8s ease-in-out infinite}
+@keyframes og-cart{0%,60%,100%{transform:translateX(0)}70%{transform:translateX(-4px) rotate(-6deg)}80%{transform:translateX(3px) rotate(4deg)}90%{transform:translateX(-1px)}}
+@keyframes og-star{0%,100%{transform:scale(1) rotate(0)}40%{transform:scale(1.22) rotate(18deg)}60%{transform:scale(.95) rotate(-6deg)}}
+@keyframes og-users{0%,55%,100%{transform:translateY(0)}65%{transform:translateY(-5px)}75%{transform:translateY(0)}82%{transform:translateY(-2px)}}
+.og-tt b{display:block;font-size:30px;font-weight:800;color:#0B2545;line-height:1.1;direction:ltr;text-align:right;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+.og-tt small{display:block;font-size:13px;color:#5A6478;margin-top:4px}
+@media (max-width:640px){.og-tstats{gap:8px;margin:0 auto 16px}.og-tstats>div{flex:1 1 0;flex-direction:column;gap:8px;text-align:center}.og-ti{flex-basis:50px;width:50px;height:50px}.og-ti::after{width:60px;height:28px;bottom:-17px}.og-ti svg{width:23px;height:23px;top:-4px}.og-tt b{font-size:20px;text-align:center}.og-tt small{font-size:11px}}
+@media (prefers-reduced-motion:reduce){.og-ti svg{animation:none !important}}

@@ -226,5 +226,28 @@
 /* og v0.2.10 (2026-11-27): زر «عرض الكل» لآراء العملاء لو سلة ما حطته */
 (function(){try{var f=function(){var s=document.querySelector('section.s-block--testimonials salla-slider');if(s&&!s.getAttribute('display-all-url')){var l=(document.documentElement.lang||'ar').slice(0,2);s.setAttribute('display-all-url',location.origin+'/'+l+'/testimonials');}};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',f);}else{f();}setTimeout(f,2500);}catch(e){}})();
 
-/* og v0.2.11 (2026-11-27): عنوان «قالوا عن اوشن قيمز» + إحصائيات تحت عنوان آراء العملاء (الأرقام من تقارير سلة 27 نوفمبر) */
-(function(){try{var AR=(document.documentElement.lang||'ar').slice(0,2)!=='en';var S=AR?[['+750','طلب'],['4.99','من 5 في 192 تقييم'],['+1100','عميل']]:[['750+','orders'],['4.99','out of 5 from 192 reviews'],['1100+','customers']];var run=function(){var sec=document.querySelector('section.s-block--testimonials');if(!sec)return;var sl=sec.querySelector('salla-slider');if(!sl)return;if(AR){var t='قالوا عن اوشن قيمز';if(sl.getAttribute('block-title')!==t)sl.setAttribute('block-title',t);}setTimeout(function(){if(sec.querySelector('.og-tstats'))return;var ti=sl.querySelector('.s-slider-block__title');if(!ti)return;var row=document.createElement('div');row.className='og-tstats';S.forEach(function(s){var d=document.createElement('div');var b=document.createElement('b');b.textContent=s[0];var m=document.createElement('small');m.textContent=s[1];d.appendChild(b);d.appendChild(m);row.appendChild(d);});ti.insertAdjacentElement('afterend',row);},700);};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}else{run();}setTimeout(run,2500);setTimeout(run,5000);}catch(e){}})();
+/* og v0.2.12 (2026-11-27): عنوان «قالوا عن اوشن قيمز» + إحصائيات بأيقونات متحركة وعداد (الأرقام من تقارير سلة 27 نوفمبر) */
+(function(){try{
+var AR=(document.documentElement.lang||'ar').slice(0,2)!=='en';
+var I={cart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>',star:'<svg viewBox="0 0 24 24" fill="#F5B700" stroke="#F5B700" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg>',users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.5a6.5 6.5 0 0 1 3 5.5"/></svg>'};
+var S=AR?[['cart',1,750,0,'طلب'],['star',0,4.99,2,'من 5 في 192 تقييم'],['users',1,1100,0,'عميل']]:[['cart',1,750,0,'orders'],['star',0,4.99,2,'out of 5 from 192 reviews'],['users',1,1100,0,'customers']];
+var fmt=function(s,v){var n=v.toFixed(s[3]);return s[1]?(AR?'+'+n:n+'+'):n;};
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var count=function(row){var bs=row.querySelectorAll('.og-tt b');S.forEach(function(s,i){var b=bs[i];if(!b||reduce)return;var t0=null;var step=function(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/1300),e=1-Math.pow(1-k,3);b.textContent=fmt(s,s[2]*e);if(k<1){requestAnimationFrame(step);}else{b.textContent=fmt(s,s[2]);}};requestAnimationFrame(step);});};
+var run=function(){
+  var sec=document.querySelector('section.s-block--testimonials');if(!sec)return;
+  var sl=sec.querySelector('salla-slider');if(!sl)return;
+  if(AR){var t='قالوا عن اوشن قيمز';if(sl.getAttribute('block-title')!==t)sl.setAttribute('block-title',t);}
+  setTimeout(function(){
+    if(sec.querySelector('.og-tstats'))return;
+    var ti=sl.querySelector('.s-slider-block__title');if(!ti)return;
+    var row=document.createElement('div');row.className='og-tstats';
+    row.innerHTML=S.map(function(s){return '<div><i class="og-ti og-ti--'+s[0]+'" aria-hidden="true">'+I[s[0]]+'</i><span class="og-tt"><b></b><small></small></span></div>';}).join('');
+    var items=row.querySelectorAll('.og-tt');S.forEach(function(s,i){items[i].querySelector('b').textContent=fmt(s,s[2]);items[i].querySelector('small').textContent=s[4];});
+    ti.insertAdjacentElement('afterend',row);
+    if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){count(row);io.disconnect();}});},{threshold:.4});io.observe(row);}
+  },700);
+};
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}else{run();}
+setTimeout(run,2500);setTimeout(run,5000);
+}catch(e){}})();
