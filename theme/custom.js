@@ -257,7 +257,7 @@ setTimeout(run,2500);setTimeout(run,5000);
   var path=(location.pathname||'').toLowerCase();
   if(/\/(cart|checkout|payment|payments|thank-you|orders?)(\/|$)/.test(path))return;
   var RG=/[ً-ْٰ]/g, RT=/[ً-ْٰ]/;
-  var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,INPUT:1,NOSCRIPT:1,CODE:1,PRE:1,SELECT:1,OPTION:1};
+  var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,INPUT:1,NOSCRIPT:1,CODE:1,PRE:1};
   var fixText=function(t){if(t.nodeValue&&RT.test(t.nodeValue)){var p=t.parentNode;if(p&&!SKIP[p.nodeName]&&!p.isContentEditable)t.nodeValue=t.nodeValue.replace(RG,'');}};
   var walk=function(root){
     if(!root)return;
