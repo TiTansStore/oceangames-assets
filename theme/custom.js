@@ -230,7 +230,7 @@
 (function(){try{
 var AR=(document.documentElement.lang||'ar').slice(0,2)!=='en';
 var I={cart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>',star:'<svg viewBox="0 0 24 24" fill="#F5B700" stroke="#F5B700" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></svg>',users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.5a6.5 6.5 0 0 1 3 5.5"/></svg>'};
-var S=AR?[['cart',1,750,0,'طلب'],['star',0,5,1,'من 5 في 191 تقييم'],['users',1,700,0,'عميل']]:[['cart',1,750,0,'orders'],['star',0,5,1,'out of 5 from 191 reviews'],['users',1,700,0,'customers']];
+var S=AR?[['cart',1,820,0,'طلب'],['star',0,5,1,'من 5 في 191 تقييم'],['users',1,1150,0,'عميل']]:[['cart',1,820,0,'orders'],['star',0,5,1,'out of 5 from 191 reviews'],['users',1,1150,0,'customers']];
 var fmt=function(s,v){var n=v.toFixed(s[3]);return s[1]?(AR?'+'+n:n+'+'):n;};
 var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var count=function(row){var bs=row.querySelectorAll('.og-tt b');S.forEach(function(s,i){var b=bs[i];if(!b||reduce)return;var t0=null;var step=function(t){if(t0===null)t0=t;var k=Math.min(1,(t-t0)/1300),e=1-Math.pow(1-k,3);b.textContent=fmt(s,s[2]*e);if(k<1){requestAnimationFrame(step);}else{b.textContent=fmt(s,s[2]);}};requestAnimationFrame(step);});};
