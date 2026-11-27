@@ -200,3 +200,11 @@ body.index .s-block--faqs .faq-container:nth-child(n+6){display:none !important}
    وتعطي أيقونة للعناصر: الرئيسية 395558740/89657336، بيسي/أوفلاين 220339287/413858039/1462054649،
    بكجات 1786185712/553799162، أونلاين 1146889969/1928293627، بلايستيشن 818005567/1286966212،
    استلم طلبك 759729420/512928453. ويخفي صف الخدمات الفاضي في أقسام المتجر. */
+
+/* ---------- 23. آراء العملاء: إحصائيات (v0.2.11, 2026-11-27) ---------- */
+.og-tstats{display:flex;justify-content:center;margin:4px auto 22px;max-width:760px}
+.og-tstats>div{flex:1 1 0;text-align:center;padding:6px 12px;min-width:0}
+.og-tstats>div+div{border-inline-start:1px solid #E1E7EF}
+.og-tstats b{display:block;font-size:30px;font-weight:800;line-height:1.2;color:#0B2545;direction:ltr;unicode-bidi:isolate}
+.og-tstats small{display:block;margin-top:4px;font-size:14px;color:#5A6478}
+@media (max-width:640px){.og-tstats{margin:0 auto 14px}.og-tstats b{font-size:20px}.og-tstats small{font-size:12px}.og-tstats>div{padding:4px 6px}}
