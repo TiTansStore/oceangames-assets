@@ -243,3 +243,6 @@ body.index .s-block--faqs .faq-container:nth-child(n+6){display:none !important}
 .og-hdots button.is-on{width:42px;background:#006FBF}
 @media (max-width:767px){.og-hero .og-hs-t{font-size:30px}.og-hdots{margin-top:16px}}
 @media (prefers-reduced-motion:reduce){.og-hs>.og-hs__s,.og-hs__s.is-on .og-fan__c{transition:none !important;animation:none !important}}
+/* v0.2.16 (2026-11-27): شيل الكلام الأصفر اللي على الأغلفة والوصف اللي يعدد الألعاب في الواجهة */
+.og-hero .og-fan__c > span{display:none !important}
+.og-hero .og-hero__wrap > div:first-child > p{display:none !important}
