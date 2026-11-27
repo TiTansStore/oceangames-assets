@@ -163,24 +163,32 @@ salla-add-product-button .s-button-element{border-radius:10px !important;font-we
 .faqs-list__item label{font-weight:700 !important;font-size:15px !important;color:var(--og-text) !important;padding:16px 18px !important}
 .faqs-list__item .answer-container{color:var(--og-muted)}
 
-/* ---------- 20. بكج اوشن: شريط مدمج (v0.2.7, 2026-11-27) ---------- */
-.og-pack{padding-block:6px !important}
-.og-pack > .container > div{flex-direction:row !important;align-items:center;max-width:960px;margin-inline:auto;border:1px solid var(--og-border,#E1E7EF);border-radius:16px !important}
-.og-pack .p_image{flex:0 0 190px;width:190px !important;height:190px;align-self:center}
-.og-pack .p_image a,.og-pack .p_image img{width:100%;height:100%;object-fit:cover}
-.og-pack .p_image + div{flex:1 1 0;width:auto !important;min-width:0;padding:14px 22px !important;gap:2px !important;justify-content:center}
-.og-pack .p_image + div > h2{font-size:1.3rem !important;line-height:1.4 !important;text-wrap:balance}
-.og-pack .p_image + div > p{display:none !important}
+/* ---------- 20. بكج اوشن: بانر كحلي مع أغلفة الألعاب (v0.2.14, 2026-11-27) ---------- */
+.og-pack{padding-block:10px !important}
+.og-pack > .container > div{display:flex !important;flex-direction:row-reverse !important;align-items:stretch !important;max-width:1120px !important;margin-inline:auto;border:0 !important;border-radius:22px !important;background:linear-gradient(120deg,#0B2545 0%,#0F3C70 55%,#0B2545 100%) !important;overflow:hidden;min-height:260px;box-shadow:0 22px 44px -26px rgba(11,37,69,.6)}
+.og-pack .p_image{position:relative;flex:0 0 46% !important;width:46% !important;height:auto !important;min-height:260px;align-self:stretch !important;margin:0 !important;border-radius:0 !important;background:url(https://cdn.jsdelivr.net/gh/TiTansStore/oceangames-assets@495315f/promo/ocean-pack-feature-1000.webp) 0 36%/215% auto no-repeat;-webkit-mask-image:linear-gradient(to right,#000 50%,transparent 100%);mask-image:linear-gradient(to right,#000 50%,transparent 100%)}
+.og-pack .p_image a{position:absolute !important;inset:0;width:auto !important;height:auto !important}
+.og-pack .p_image img{display:none !important}
+.og-pack .p_image + div{flex:1 1 0 !important;width:auto !important;min-width:0;padding:30px 44px !important;gap:6px !important;justify-content:center;background:transparent !important}
+.og-pack .p_image + div > h2{color:#fff !important;font-size:38px !important;font-weight:800 !important;line-height:1.15 !important;margin:0 !important;text-wrap:balance}
+.og-pack .p_image + div > p{display:block !important;color:#A9CBEA !important;font-size:16px !important;font-weight:500;line-height:1.6 !important;margin:6px 0 0 !important}
 .og-pack .tabs,.og-pack .tabs-wrapper{display:none !important}
-.og-pack .special-products-btn{margin-top:10px !important}
+.og-pack .special-price{margin-top:10px}
+.og-pack .special-price-current{color:#F5B700 !important;font-size:30px !important;font-weight:800 !important}
+.og-pack .special-price-current .sicon-sar{font-size:22px}
+.og-pack .special-products-btn{margin-top:16px !important;max-width:460px;gap:10px !important}
+.og-pack .special-products-btn > *{flex:1 1 0;min-width:0}
+.og-pack .special-products-btn .s-button-element{background:#F5B700 !important;color:#0B2545 !important;border-color:#F5B700 !important;font-weight:800 !important;border-radius:12px !important;height:46px}
+.og-pack .special-products-btn > a.btn{background:transparent !important;color:#fff !important;border:1.5px solid rgba(255,255,255,.55) !important;border-radius:12px !important;height:46px;font-weight:700}
+.og-pack .special-products-btn > a.btn:hover{background:rgba(255,255,255,.08) !important}
 @media (max-width:767px){
-  .og-pack > .container > div{display:grid !important;grid-template-columns:84px minmax(0,1fr);column-gap:12px;row-gap:2px;align-items:center;padding:12px}
-  .og-pack .p_image + div,.og-pack .s-product-tabs{display:contents !important}
-  .og-pack .p_image{grid-column:1;grid-row:1 / span 2;width:84px !important;height:84px;margin:0 !important;border-radius:12px;overflow:hidden}
-  .og-pack .p_image + div > h2{grid-column:2;align-self:end;font-size:1rem !important}
-  .og-pack .special-price{grid-column:2;align-self:start}
-  .og-pack .special-products-btn{grid-column:1 / -1;gap:6px !important;margin-top:10px !important;margin-inline-start:0 !important}
-  .og-pack .special-products-btn > *{flex:1 1 0;min-width:0}
+  .og-pack > .container > div{flex-direction:column !important;min-height:0}
+  .og-pack .p_image{flex:0 0 150px !important;width:100% !important;min-height:150px;height:150px !important;background-size:225% auto;background-position:0 34%;-webkit-mask-image:linear-gradient(to bottom,#000 45%,transparent 100%);mask-image:linear-gradient(to bottom,#000 45%,transparent 100%)}
+  .og-pack .p_image + div{padding:0 18px 20px !important;margin-top:-30px;text-align:center;align-items:center}
+  .og-pack .p_image + div > h2{font-size:28px !important}
+  .og-pack .p_image + div > p{font-size:14px !important}
+  .og-pack .special-price{justify-content:center}
+  .og-pack .special-products-btn{width:100%;max-width:none}
 }
 
 /* ---------- 21. الرئيسية: نص أقل (v0.2.7, 2026-11-27) ---------- */
