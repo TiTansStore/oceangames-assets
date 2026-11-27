@@ -396,43 +396,65 @@ setTimeout(run,2500);setTimeout(run,5000);
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
 }catch(e){}})();
 
-/* og v0.2.20 (2026-11-27): سلة أحيانا ترسل نسخة قديمة من القائمة الجانبية (الحسابات والاشتراكات والدسكورد).
-   هذا يبني روابط القائمة من جديد بالأقسام الحالية بس، مهما كانت النسخة اللي وصلت. */
+/* og v0.2.21 (2026-11-27): سلة أحيانا ترسل نسخة قديمة من القائمة الجانبية (الحسابات والاشتراكات والدسكورد).
+   هذا يبني روابط القائمة من جديد بالأقسام الحالية بس، مهما كانت النسخة اللي وصلت.
+   v0.2.21: قسم «ألعاب بيسي» فوق ألعاب الأوفلاين والبكجات والأونلاين (يفتح قائمة فرعية). */
 (function(){try{
   var EN=(document.documentElement.lang||'ar').slice(0,2)==='en';
   var L=EN?'/en/':'/ar/';
-  var IT=[
-    ['395558740',EN?'Home':'الرئيسية',L],
+  var PC=['220339287',EN?'PC Games':'ألعاب بيسي'];
+  var KIDS=[
     ['413858039',EN?'Offline Games':'ألعاب أوفلاين',L+'offline-games/c365938331'],
     ['1786185712',EN?'Offline Bundles':'بكجات أوفلاين',L+'-/c1314382021'],
-    ['1146889969',EN?'Online Games':'ألعاب أونلاين',L+'onlinegames/c917561752'],
+    ['1146889969',EN?'Online Games':'ألعاب أونلاين',L+'onlinegames/c917561752']
+  ];
+  var TOP=[
+    ['395558740',EN?'Home':'الرئيسية',L],
+    PC,
     ['818005567',EN?'PS5 Games':'ألعاب بلايستيشن',L+'playstation/c477347009'],
     ['759729420',EN?'Get Your Order':'استلم طلبك','https://code.oceangames.shop/']
   ];
   var links=function(ul){return Array.prototype.filter.call(ul.children,function(li){return li.tagName==='LI'&&!li.classList.contains('links')&&!li.classList.contains('og-mi')&&li.querySelector(':scope > a.sidemenu-link');});};
+  var item=function(tpl,it){
+    var li=tpl.cloneNode(true);li.id='og-mi-'+it[0];li.className=tpl.className.replace(/\bog-mi\S*/g,'').trim();li.classList.add('og-mi');li.removeAttribute('style');
+    var sub=li.querySelector(':scope > ul');if(sub)li.removeChild(sub);
+    var a=li.querySelector(':scope > a');if(!a)return null;
+    a.setAttribute('href',it[2]);a.removeAttribute('target');a.classList.remove('has-max');
+    var t=a.querySelector('.menu_title')||a;t.textContent=it[1];
+    return li;
+  };
+  var group=function(tpl){
+    var li=item(tpl,['x','x','#']);if(!li)return null;li.id='og-mi-'+PC[0];li.classList.add('og-mi-pc');
+    var a=li.querySelector(':scope > a');
+    var sp=document.createElement('span');sp.className=a.className;
+    var t=a.querySelector('.menu_title');if(t){t=t.cloneNode(false);t.textContent=PC[1];sp.appendChild(t);}else{sp.textContent=PC[1];}
+    li.replaceChild(sp,a);
+    var ul=document.createElement('ul');ul.className='og-mi-sub';ul.setAttribute('data-mm-spn-title',PC[1]);
+    KIDS.forEach(function(it){var k=item(tpl,it);if(k)ul.appendChild(k);});
+    li.appendChild(ul);
+    return li;
+  };
   var fix=function(){
     var ul=document.querySelector('nav#mobile-menu .main-menu');if(!ul)return false;
     var old=links(ul);
-    if(!old.length)return !!ul.querySelector(':scope > li.og-mi');
-    var tpl=null;for(var i=0;i<old.length;i++){if(!old[i].querySelector('ul')){tpl=old[i];break;}}
+    var mine=Array.prototype.filter.call(ul.children,function(li){return li.classList&&li.classList.contains('og-mi');});
+    var ok=ul.querySelector(':scope > li#og-mi-'+PC[0]);
+    if(!old.length&&ok)return true;
+    var pool=old.concat(mine);if(!pool.length)return false;
+    var tpl=null;for(var i=0;i<pool.length;i++){if(!pool[i].querySelector('ul')&&pool[i].querySelector(':scope > a.sidemenu-link')){tpl=pool[i];break;}}
     if(!tpl)return false;
-    var at=old[0],frag=document.createDocumentFragment();
-    IT.forEach(function(it){
-      var li=tpl.cloneNode(true);li.id='og-mi-'+it[0];li.classList.add('og-mi');li.removeAttribute('style');
-      var a=li.querySelector(':scope > a');if(!a)return;
-      a.setAttribute('href',it[2]);a.removeAttribute('target');a.classList.remove('has-max');
-      var t=a.querySelector('.menu_title')||a;t.textContent=it[1];
-      frag.appendChild(li);
-    });
+    tpl=tpl.cloneNode(true);
+    var at=pool[0],frag=document.createDocumentFragment();
+    TOP.forEach(function(it){var li=(it===PC)?group(tpl):item(tpl,it);if(li)frag.appendChild(li);});
     ul.insertBefore(frag,at);
-    old.forEach(function(li){if(li.parentNode)li.parentNode.removeChild(li);});
+    pool.forEach(function(li){if(li.parentNode)li.parentNode.removeChild(li);});
     return true;
   };
   var n=0,tick=function(){fix();if(++n<20)setTimeout(tick,500);};
   var start=function(){
     tick();
     var nav=document.querySelector('nav#mobile-menu');
-    if(nav&&'MutationObserver' in window){var busy=false;new MutationObserver(function(){if(busy)return;busy=true;setTimeout(function(){busy=false;var ul=nav.querySelector('.main-menu');if(ul&&links(ul).length)fix();},150);}).observe(nav,{childList:true,subtree:true});}
+    if(nav&&'MutationObserver' in window){var busy=false;new MutationObserver(function(){if(busy)return;busy=true;setTimeout(function(){busy=false;var ul=nav.querySelector('.main-menu');if(ul&&(links(ul).length||!ul.querySelector(':scope > li#og-mi-'+PC[0])))fix();},150);}).observe(nav,{childList:true,subtree:true});}
   };
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
 }catch(e){}})();
