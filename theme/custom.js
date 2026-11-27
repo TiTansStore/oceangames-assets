@@ -222,3 +222,6 @@
     start();
   }
 })();
+
+/* og v0.2.10 (2026-11-27): زر «عرض الكل» لآراء العملاء لو سلة ما حطته */
+(function(){try{var f=function(){var s=document.querySelector('section.s-block--testimonials salla-slider');if(s&&!s.getAttribute('display-all-url')){var l=(document.documentElement.lang||'ar').slice(0,2);s.setAttribute('display-all-url',location.origin+'/'+l+'/testimonials');}};if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',f);}else{f();}setTimeout(f,2500);}catch(e){}})();
