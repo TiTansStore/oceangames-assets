@@ -395,3 +395,44 @@ setTimeout(run,2500);setTimeout(run,5000);
   };
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
 }catch(e){}})();
+
+/* og v0.2.20 (2026-11-27): سلة أحيانا ترسل نسخة قديمة من القائمة الجانبية (الحسابات والاشتراكات والدسكورد).
+   هذا يبني روابط القائمة من جديد بالأقسام الحالية بس، مهما كانت النسخة اللي وصلت. */
+(function(){try{
+  var EN=(document.documentElement.lang||'ar').slice(0,2)==='en';
+  var L=EN?'/en/':'/ar/';
+  var IT=[
+    ['395558740',EN?'Home':'الرئيسية',L],
+    ['413858039',EN?'Offline Games':'ألعاب أوفلاين',L+'offline-games/c365938331'],
+    ['1786185712',EN?'Offline Bundles':'بكجات أوفلاين',L+'-/c1314382021'],
+    ['1146889969',EN?'Online Games':'ألعاب أونلاين',L+'onlinegames/c917561752'],
+    ['818005567',EN?'PS5 Games':'ألعاب بلايستيشن',L+'playstation/c477347009'],
+    ['759729420',EN?'Get Your Order':'استلم طلبك','https://code.oceangames.shop/']
+  ];
+  var links=function(ul){return Array.prototype.filter.call(ul.children,function(li){return li.tagName==='LI'&&!li.classList.contains('links')&&!li.classList.contains('og-mi')&&li.querySelector(':scope > a.sidemenu-link');});};
+  var fix=function(){
+    var ul=document.querySelector('nav#mobile-menu .main-menu');if(!ul)return false;
+    var old=links(ul);
+    if(!old.length)return !!ul.querySelector(':scope > li.og-mi');
+    var tpl=null;for(var i=0;i<old.length;i++){if(!old[i].querySelector('ul')){tpl=old[i];break;}}
+    if(!tpl)return false;
+    var at=old[0],frag=document.createDocumentFragment();
+    IT.forEach(function(it){
+      var li=tpl.cloneNode(true);li.id='og-mi-'+it[0];li.classList.add('og-mi');li.removeAttribute('style');
+      var a=li.querySelector(':scope > a');if(!a)return;
+      a.setAttribute('href',it[2]);a.removeAttribute('target');a.classList.remove('has-max');
+      var t=a.querySelector('.menu_title')||a;t.textContent=it[1];
+      frag.appendChild(li);
+    });
+    ul.insertBefore(frag,at);
+    old.forEach(function(li){if(li.parentNode)li.parentNode.removeChild(li);});
+    return true;
+  };
+  var n=0,tick=function(){fix();if(++n<20)setTimeout(tick,500);};
+  var start=function(){
+    tick();
+    var nav=document.querySelector('nav#mobile-menu');
+    if(nav&&'MutationObserver' in window){var busy=false;new MutationObserver(function(){if(busy)return;busy=true;setTimeout(function(){busy=false;var ul=nav.querySelector('.main-menu');if(ul&&links(ul).length)fix();},150);}).observe(nav,{childList:true,subtree:true});}
+  };
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',start);}else{start();}
+}catch(e){}})();
