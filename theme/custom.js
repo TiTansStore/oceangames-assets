@@ -320,6 +320,9 @@ setTimeout(run,2500);setTimeout(run,5000);
     var span0=w0.querySelector('.og-fan a span');var spanCls=span0?span0.className:'';
     var hs=document.createElement('div');hs.className='og-hs';
     w0.parentNode.insertBefore(hs,w0);hs.appendChild(w0);w0.classList.add('og-hs__s','is-on');
+    var b0=w0.querySelectorAll('.og-hero__cta a');
+    if(b0[0]){b0[0].textContent='تصفح الألعاب';b0[0].href=O+'offline-games/c365938331';}
+    if(b0[1]){b0[1].textContent='اطلب بكج اوشن';b0[1].href=O+'ocean-pack-all-offline-games-steam/p1940328167';}
     SL.forEach(function(s){
       var w=w0.cloneNode(true);w.classList.remove('is-on');w.setAttribute('aria-hidden','true');
       var h1=w.querySelector('h1');var emOld=h1?h1.querySelector('em'):null;
